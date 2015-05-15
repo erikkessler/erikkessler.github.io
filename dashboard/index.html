@@ -1,1 +1,246 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href=".//favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="../favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="../favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="../favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="../favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>inspireDo - SAT/ACT Prep</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../navbar-fixed-top.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <img class="navbar-brand" src="../images/inspireDo.png">
+
+	</div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="jumbotron">
+	<h2 class="text-center">
+	  <button onClick="changeWeek(1)" id="prev-week" type="button" class="btn btn-primary btn-xs" style="
+    margin-bottom: 4px;
+    margin-right: 5px;
+">&lt;</button>
+	  Dashboard: Week of <span id="week"></span>
+	  <button onClick="changeWeek(-1)" id="next-week" type="button" class="btn btn-primary btn-xs" style="
+    margin-bottom: 4px;
+    margin-left: 5px;
+    ">&gt;</button>
+	</h2>
+
+	<h4>Overall</h4>
+	<table id="overall"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       data-sort-name="total"
+	       data-sort-order="desc"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="student">Student</th>
+	      <th data-field="earn">Earned</th>
+	      <th data-field="lost">Lost</th>
+	      <th data-field="bonus">Bonus</th>
+	      <th data-field="total" data-sortable="true">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+
+	<br>
+	<h4>Monday</h4>
+	<table id="monday"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+	<br>
+	<h4>Tuesday</h4>
+	<table id="tues"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+
+	<br>
+	<h4>Wednesday</h4>
+	<table id="wed"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+	<br>
+	<h4>Thursday</h4>
+	<table id="thurs"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+
+	<br>
+	<h4>Friday</h4>
+	<table id="fri"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+
+	<br>
+	<h4>Saturday</h4>
+	<table id="sat"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+
+	<br>
+	<h4>Sunday</h4>
+	<table id="sun"
+	       data-toggle="table"
+	       data-classes="table table-no-bordered"
+	       >
+	  <thead>
+	    <tr>
+	      <th data-field="name">Student</th>
+	      <th data-field="sleep">Sleep</th>
+	      <th data-field="vocab">Vocab</th>
+	      <th data-field="muse">Muse</th>
+	      <th data-field="app">App</th>
+	      <th data-field="sat">SAT</th>
+	      <th data-field="daily">Plan</th>
+	      <th data-field="total">Total</th>
+	    </tr>
+	  </thead>
+	</table>
+
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+	 ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/locale/bootstrap-table-en-US.min.js"></script>
+    <script src="tables.js"></script>
+  </body>
+</html>
