@@ -76,7 +76,7 @@ function loadData(delta) {
 }
     
 function getInd(value) {
-    if (value == 1) {
+    if (value > 0) {
 	return "<span style=\"color: green;\">✓</span>";
     } else if (value == "x") {
 	return "<span style=\"color: red;\">✗</span>";
