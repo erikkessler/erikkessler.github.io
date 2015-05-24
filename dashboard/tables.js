@@ -1,5 +1,5 @@
 var tables = [$('#monday'), $('#tues'), $('#wed'), $('#thurs'), $('#fri'), $('#sat'), $('#sun'), $('#overall')];
-var weekstart = 1430107200000;
+var weekstart = 1431921600000;
 var d = 0;
 
 $(function () {
@@ -52,8 +52,8 @@ function loadData(delta) {
 		var sData = [];
 		for (var s = 0; s < students.length; s++) {
 		    var daily = data[students[s]]["daily"];
-		    var index = t * 7;
-		    sData.push({name: students[s], sleep:  getInd(daily[index + 0]), vocab: getInd(daily[index + 1]), muse: getInd(daily[index + 2]), app: getInd(daily[index + 3]), sat: getInd(daily[index + 4]), daily: getInd(daily[index + 5]), total: daily[index + 6]});
+		    var index = t * 6;
+		    sData.push({name: students[s], sleep:  getInd(daily[index + 0]), vocab: getInd(daily[index + 1]), app: getInd(daily[index + 2]), sat: getInd(daily[index + 3]), daily: getInd(daily[index + 4]), total: daily[index + 5]});
 		}
 		tables[t].bootstrapTable('load',sData);
 	    }
@@ -61,7 +61,6 @@ function loadData(delta) {
 	    var over = [];
 	    for (var s = 0; s < students.length; s++) {
 		var totals = data[students[s]]["totals"];
-		var index = t * 7;
 		over.push({student: students[s], earn: totals[0], lost: totals[1], bonus: totals[2], total: totals[3]});
 	    }
 
