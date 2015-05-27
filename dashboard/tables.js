@@ -43,7 +43,7 @@ function loadData(delta) {
     }
     $.ajax({
 	type: 'GET',
-	url: "https://script.google.com/macros/s/AKfycbyWGsn_xSunqEGc3POZGfwNApb5gLLtwwQO25SGcByW720EkAFD/exec?delta=" + delta,
+	url: "https://script.google.com/macros/s/AKfycbxJ0EUfBNdNNxRrlUu-LBOMrO4316qVctiiFVSR-z5xtSP_zIFf/exec?delta=" + delta,
 	success: function (data) {
 
 	    var students = Object.keys(data);
