@@ -1,0 +1,21 @@
+{
+  "name": "inspiredo",
+  "version": "0.1",
+  "homepage": "https://github.com/erikkessler/erikkessler.github.io",
+  "authors": [
+    "Erik Kessker <erik.kessler1@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-form": "PolymerElements/iron-form#^1.0.0",
+    "paper-button": "PolymerElements/paper-button#^1.0.0",
+    "paper-input": "PolymerElements/paper-input#^1.0.0",
+    "firebase-element": "GoogleWebComponents/firebase-element#^1.0.0"
+  }
+}

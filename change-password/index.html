@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="inspireDo SAT and ACT Prep. Achieve the SAT / ACT scores you need this fall... Guaranteed.">
+
+    <!-- 1. Load webcomponents-lite.min.js for polyfill support. -->
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js">
+    </script>
+
+    <!-- 2. Use an HTML Import to bring in some elements. -->
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/firebase-element/firebase-auth.html">
+    <link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+    <link rel="import" href="../bower_components/paper-styles/demo-pages.html">
+    
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="../favicon-16x16.png" sizes="16x16" />
+    
+    <title>inspireDo - Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../navbar-fixed-top.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.7.0/bootstrap-table.min.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+	<style is="custom-style">
+	   paper-input {
+	    --paper-input-container-focus-color: #512DA8;
+	   }
+
+	   paper-button {
+	   color: #512DA8;
+	   }
+	</style>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	    <span class="sr-only">Toggle navigation</span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	  </button>
+	  <img class="navbar-brand" src="../images/inspireDo.png">
+
+	</div>
+      </div>
+    </nav>
+
+    <div  style="margin-top: 24px" class="horizontal center-justified layout">
+      <div style="margin-top: 24px" class="vertical-section">
+
+	<password-changer></password-changer>
+      </div>
+    </div>
+    
+    <!-- Bootstrap core JavaScript
+	 ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+  </body>
+
+  <dom-module id="password-changer">
+      <template>
+    <firebase-auth id="firebaseLogin" user="{{user}}" status-known="{{statusKnown}}" location="https://inspiredo.firebaseio.com" provider="password" on-error="errorHandler" on-user-created="userSuccessHandler" on-password-changed="userSuccessHandler" on-password-reset="userSuccessHandler" on-user-removed="userSuccessHandler"></firebase-auth>
+
+	<h3>Change Password</h3>
+	<h4 style="color: red">[[errorMessage]]</h4>
+	<h4 style="color: green">[[successMessage]]</h4>
+	<paper-input  value="{{email::input}}" label="Email"  style="width: 320px" ></paper-input>
+	<paper-input  value="{{password::input}}" type="password" label="Old Password" style="width: 320px" ></paper-input>
+	<paper-input  type="password" value="{{newPassword::input}}" label="New Password" style="width: 320px" ></paper-input>
+	<paper-button on-tap="changePasswordHandler" disabled$="{{computeChangePasswordDisabled(email, password, newPassword)}}">Change</paper-button>
+	<paper-button on-tap="resetPasswordHandler" disabled$="{{computeResetPasswordDisabled(email,password)}}}">Reset</paper-button>
+
+  </template>
+  </dom-module>
+
+  <script>
+    var error;
+      Polymer({
+      is: 'password-changer',
+
+      properties: {
+      provider: {
+      type: String,
+      value: 'anonymous'
+      },
+
+      message: {
+      type: String,
+      value: ''
+      },
+
+      email: {
+      type: String,
+      value: ''
+      },
+
+      password: {
+      type: String,
+      value: ''
+    },
+
+    newPassword: {
+    type: String,
+    value: ''
+    },
+
+      user: {
+      type: Object,
+      value: null
+      },
+
+      statusKnown: {
+      type: Boolean
+      }
+      },
+
+      login: function() {
+      var params;
+
+      try {
+      params = JSON.parse(this.params);
+      } catch (e) {
+      params = null;
+      }
+
+      if (this.provider == 'password') {
+      params = params || {};
+      params.email = this.email;
+      params.password = this.password;
+      }
+
+      this.$.firebaseLogin.login(params);
+      },
+
+      logout: function() {
+      this.$.firebaseLogin.logout();
+      },
+
+    errorHandler: function(e) {
+    this.successMessage = "";
+    error = e;
+      this.errorMessage = 'Error: ' + e.detail.message;
+      },
+
+    userSuccessHandler: function(e) {
+    this.errorMessage = "";
+    error = e;
+      this.email = "";
+      this.password = "";
+      this.newPassword = "";
+    if (e.type === "password-reset") {
+    this.successMessage = "Check email for temporary password."
+    } else {
+    this.successMessage = "Password changed."
+    };
+      },
+
+      createUserHandler: function(e) {
+      this.$.firebaseLogin.createUser(this.email, this.password);
+      },
+
+      changePasswordHandler: function(e) {
+      this.$.firebaseLogin.changePassword(this.email, this.password, this.newPassword);
+      },
+
+      resetPasswordHandler: function(e) {
+      this.$.firebaseLogin.sendPasswordResetEmail(this.email);
+      },
+
+      computePasswordHidden: function(provider) {
+      return provider !== 'password';
+      },
+
+      computeCreateUserDisabled: function(email, password) {
+      return !email || !password;
+      },
+
+      computeChangePasswordDisabled: function(email, password, newPassword) {
+      return email === "" || password === "" || newPassword === "";
+      },
+
+      computeResetPasswordDisabled: function(email, password) {
+      return email === "";
+      },
+
+      computeRemoveUserDisabled: function(email, password) {
+      return !email || !password;
+      },
+
+      computeLoginHidden: function(statusKnown, user) {
+      return !statusKnown || !!user;
+      },
+
+      computeLogoutHidden: function(statusKnown, user) {
+      return !statusKnown || !user;
+      },
+
+      computeLoginStatus: function(statusKnown, user) {
+      if (statusKnown && user) {
+      return 'Logged in';
+      }
+
+      if (statusKnown) {
+      return 'Logged out';
+      }
+
+      return 'Unknown (checking status...)';
+      }
+      });
+    </script>
+
+</html>
