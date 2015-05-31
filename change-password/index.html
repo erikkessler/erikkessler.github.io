@@ -39,15 +39,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
 
-	<style is="custom-style">
-	   paper-input {
-	    --paper-input-container-focus-color: #512DA8;
-	   }
-
-	   paper-button {
-	   color: #512DA8;
-	   }
-	</style>
   </head>
 
   <body>
@@ -83,17 +74,28 @@
   </body>
 
   <dom-module id="password-changer">
+    <style is="custom-style">
+      paper-input {
+      --paper-input-container-focus-color: #512DA8;
+      }
+
+      paper-button {
+      color: #512DA8;
+      }
+    </style>
+
       <template>
     <firebase-auth id="firebaseLogin" user="{{user}}" status-known="{{statusKnown}}" location="https://inspiredo.firebaseio.com" provider="password" on-error="errorHandler" on-user-created="userSuccessHandler" on-password-changed="userSuccessHandler" on-password-reset="userSuccessHandler" on-user-removed="userSuccessHandler"></firebase-auth>
 
 	<h3>Change Password</h3>
 	<h4 style="color: red">[[errorMessage]]</h4>
 	<h4 style="color: green">[[successMessage]]</h4>
-	<paper-input  value="{{email::input}}" label="Email"  style="width: 320px" ></paper-input>
-	<paper-input  value="{{password::input}}" type="password" label="Old Password" style="width: 320px" ></paper-input>
-	<paper-input  type="password" value="{{newPassword::input}}" label="New Password" style="width: 320px" ></paper-input>
+	<paper-input  value="{{email::input}}" label="Email" ></paper-input>
+	<paper-input  value="{{password::input}}" type="password" label="Old Password" ></paper-input>
+	<paper-input  type="password" value="{{newPassword::input}}" label="New Password"  ></paper-input>
 	<paper-button on-tap="changePasswordHandler" disabled$="{{computeChangePasswordDisabled(email, password, newPassword)}}">Change</paper-button>
 	<paper-button on-tap="resetPasswordHandler" disabled$="{{computeResetPasswordDisabled(email,password)}}}">Reset</paper-button>
+
 
   </template>
   </dom-module>
