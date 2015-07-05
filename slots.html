@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <style>
+      div.winner {
+        font-size: 60px;
+        color: #673AB7;
+      }
+    </style>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  </head>
+
+  <body>
+    <input type="button" id="random" value="Roll!" />
+    <div id="display"></div>
+
+    <script type="text/javascript">
+        var students = [
+          "Erik",
+          "Erik Kessler",
+          "Kessler E.",
+          "Kessler, Erik"
+        ]
+
+        var winner = 0;
+        var last;
+
+        var cycles = 10;
+
+        var $display = $("#display");
+
+        $('#random').click(function () {
+
+          getandshow();
+        });
+
+        function getandshow() {
+
+          var selected;
+
+          do {
+            selected = Math.floor(Math.random() * students.length);
+            console.log(selected);
+          } while (selected == last);
+
+          last = selected;
+
+          $display.text(students[selected]);
+
+          if (cycles != 0) {
+            setTimeout(getandshow, 1200 - (cycles * 100));
+            cycles--;
+          } else {
+            setTimeout(showWinner, 1200);
+          }
+
+        }
+
+        function showWinner() {
+          $display.text(students[winner]);
+
+          setTimeout(function() {
+            $display.addClass("winner");
+          }, 750);
+        }
+    </script>
+  </body>
+
+</html>
